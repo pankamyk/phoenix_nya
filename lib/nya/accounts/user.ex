@@ -19,6 +19,7 @@ defmodule Nya.Accounts.User do
     |> validate_required([:username, :email, :password])
     |> validate_length(:username, min: 2, max: 64)
     |> validate_length(:password, min: 10, max: 100)
+    |> validate_confirmation(:password, required: true)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> put_pass_hash()
