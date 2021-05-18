@@ -2,12 +2,12 @@ defmodule Nya.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "users" do
-    field :email,    :string
-    field :username, :string
-    field :password, :string, virtual: true
-    field :password_hash, :string
-    field :is_admin, :boolean, default: false
+  schema("users") do
+    field(:email,    :string)
+    field(:username, :string)
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
+    field(:is_admin, :boolean, default: false)
 
     timestamps([type: :utc_datetime_usec])
   end
