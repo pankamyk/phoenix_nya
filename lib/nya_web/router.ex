@@ -13,11 +13,23 @@ defmodule NyaWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :guardian do
+    plug(Nya.Guardian.Pipeline)
+  end
+
+  pipeline :authorize do
+    plug(Guardian.Plug.EnsureAuthenticated)
+  end
+
   scope("/", NyaWeb) do
-    pipe_through(:browser)
+    pipe_through([:browser, :guardian])
 
     get("/", PageController, :index)
     resources("/users", UserController)
+  end
+
+  scope("/api/v1/", NyaWeb) do
+    pipe_through([:api, :guardian])
   end
 
   # Other scopes may use custom stacks.
